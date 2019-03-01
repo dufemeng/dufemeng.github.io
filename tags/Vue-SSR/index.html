@@ -2,7 +2,7 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>归档 - 李萌的个人空间</title>
+<title>标签: Vue-SSR - 李萌的个人空间</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="李萌，前端开发从业者，熟悉 HTML，CSS，JavaScript，Node.js，Vue.js 等技术，毕业于东北财经大学电子商务专业，目前就职于腾讯。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="李萌的个人空间">
-<meta property="og:url" content="http://dufemeng.github.io/archives/index.html">
+<meta property="og:url" content="http://dufemeng.github.io/tags/Vue-SSR/index.html">
 <meta property="og:site_name" content="李萌的个人空间">
 <meta property="og:description" content="李萌，前端开发从业者，熟悉 HTML，CSS，JavaScript，Node.js，Vue.js 等技术，毕业于东北财经大学电子商务专业，目前就职于腾讯。">
 <meta property="og:locale" content="zh-CN">
@@ -98,7 +98,7 @@
                 
                 <a class="navbar-item" href="/">首页</a>
                 
-                <a class="navbar-item is-active" href="/archives">存档</a>
+                <a class="navbar-item" href="/archives">存档</a>
                 
                 <a class="navbar-item" href="/categories">分类</a>
                 
@@ -133,35 +133,69 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-        
-<div class="card widget">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        2018
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-02-27T16:26:56.000Z">2018-02-28</time>
-                        <a href="/2018/02/28/Vue SSR 解决不同终端渲染不同页面的问题/" class="has-link-black-ter is-size-6">Vue SSR 解决不同终端渲染不同页面的问题</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-        </div>
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">标签</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Vue-SSR</a></li>
+        </ul>
+        </nav>
     </div>
 </div>
 
+    <div class="card">
     
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-27T16:26:56.000Z">2018-02-28</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 805 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/28/Vue SSR 解决不同终端渲染不同页面的问题/">Vue SSR 解决不同终端渲染不同页面的问题</a>
+            
+        </h1>
+        <div class="content">
+            <p>随着技术的发展，现如今的网页越来越注意用户体验，设计上也越来越炫酷，对于我们开发的要求也越来越高。由于移动端和pc端在尺寸大小、分辨率、网速等方面的不同，对于同一个页面来说，很有可能移动端和pc端上的视觉呈现大相径庭，在日常的开发过程中，我们很有可能收到两份设计稿，一份pc端的，一份移动端的，如果这两个设计稿在视觉上的差异非常非常大，导致在同一个页面上做响应式适配变得非常复杂和繁琐，那么提取公共的组件和方法，然后直接根据不同终端分别开发会是一个不错的选择。</p>
+<p>在改版我们原创馆官网的时候遇到过这个需求，这个项目是用Vue.js 开发的，同时也用了Vue SSR 进行的前后端同构，那么我们来模拟下这个问题，在不同终端渲染不同的页面，关键点是在组件里判断终端，简单粗暴的可以直接用userAgent来判断，有同学说这很easy 啊！</p>
+<p><strong> Home.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="hljs-string">"home"</span>&gt;</span><br><span class="line">        &lt;mobile-page v-<span class="hljs-keyword">if</span>=<span class="hljs-string">"isMobile"</span>&gt;&lt;/mobile-page&gt;</span><br><span class="line">        &lt;pc-page v-else&gt;&lt;/pc-page&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="hljs-keyword">import</span> PcPage <span class="hljs-keyword">from</span> <span class="hljs-string">'./PcPage'</span></span><br><span class="line">    <span class="hljs-keyword">import</span> MobilePage <span class="hljs-keyword">from</span> <span class="hljs-string">'./MobilePage'</span></span><br><span class="line">    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">        components : &#123;</span><br><span class="line">            PcPage,</span><br><span class="line">            MobilePage</span><br><span class="line">        &#125;,</span><br><span class="line">        data()&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">                isMobile : process.env.VUE_ENV === <span class="hljs-string">'client'</span> ? <span class="hljs-regexp">/mobile/</span>.test(<span class="hljs-built_in">window</span>.navigator.userAgent.toLowerCase()) : <span class="hljs-literal">null</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong> PcPage.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="hljs-string">"pc-page"</span>&gt;</span><br><span class="line">        pc page</span><br><span class="line">    &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong> MobilePage.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="hljs-string">"mobile-page"</span>&gt;</span><br><span class="line">        mobile page</span><br><span class="line">    &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br></pre></td></tr></table></figure></p>
+<p>看起来的确是这样的，但是实际上还是出现了问题：<br><img src="../images/1.gif" alt="效果显示" title="Vue SSR 不同终端效果 来自李萌的博客"></p>
+<p>当刷新页面的时候，会出现“跳一下”的现象，先显示 “pc page”，然后迅速显示“mobile page”，这在用户体验上其实是非常不好。为什么会出现这种现象呢？其实也很好理解，server端由于没有window、document这些对象，所以是无法访问navigation的，直接访问会报错，所以用Vue SSR 直出的server 端返回的isMobile 值是null，客户端则可以返回正确的isMobile 值，相当于浏览器先渲染server端的代码，再根据前端代码进行调整。</p>
+<p>那么如何在server 端获取正确的 isMobile 值呢？其实可以想到请求页面时请求头里是会发送userAgent的，那么只需要在server 端根据请求头里的userAgent 判断一下，然后再发送给Vue.js 渲染即可。</p>
+<p>经过不懈的翻看Vue SSR文档，终于找到了一个叫 ssrContext 可以完成发送数据到组件渲染的任务。</p>
+<p><strong> server.js </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> context = &#123;</span><br><span class="line">		title: <span class="hljs-string">'a template for vue ssr'</span>, <span class="hljs-comment">// default title</span></span><br><span class="line">        url: req.url,</span><br><span class="line">        <span class="hljs-comment">//注意这里</span></span><br><span class="line">        isMobile: <span class="hljs-regexp">/mobile/</span>.test(req.headers[<span class="hljs-string">'user-agent'</span>].toLowerCase())</span><br><span class="line">	&#125;</span><br><span class="line">	renderer.renderToString(context, (err, html) =&gt; &#123;</span><br><span class="line">		<span class="hljs-keyword">if</span> (err) &#123;</span><br><span class="line">			<span class="hljs-keyword">return</span> handleError(err)</span><br><span class="line">		&#125;</span><br><span class="line">		res.send(html)</span><br><span class="line">		<span class="hljs-keyword">if</span> (!isProd) &#123;</span><br><span class="line">			<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`whole request: <span class="hljs-subst">$&#123;<span class="hljs-built_in">Date</span>.now() - s&#125;</span>ms`</span>)</span><br><span class="line">		&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><strong> Home.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">        isMobile : process.env.VUE_ENV === <span class="hljs-string">'client'</span> ? <span class="hljs-regexp">/mobile/</span>.test(<span class="hljs-built_in">window</span>.navigator.userAgent.toLowerCase()) : <span class="hljs-keyword">this</span>.$ssrContext.isMobile</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>搞定，此时无论怎么暴力刷新移动端的页面，都不会出现“跳一下”的现象。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
 </div>
                 
 
