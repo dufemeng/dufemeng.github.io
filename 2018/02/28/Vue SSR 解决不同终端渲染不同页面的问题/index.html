@@ -16,7 +16,7 @@
 <meta property="og:description" content="随着技术的发展，现如今的网页越来越注意用户体验，设计上也越来越炫酷，对于我们开发的要求也越来越高。由于移动端和pc端在尺寸大小、分辨率、网速等方面的不同，对于同一个页面来说，很有可能移动端和pc端上的视觉呈现大相径庭，在日常的开发过程中，我们很有可能收到两份设计稿，一份pc端的，一份移动端的，如果这两个设计稿在视觉上的差异非常非常大，导致在同一个页面上做响应式适配变得非常复杂和繁琐，那么提取公共的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://dufemeng.github.io/2018/02/28/images/1.gif">
-<meta property="og:updated_time" content="2019-03-01T16:01:41.463Z">
+<meta property="og:updated_time" content="2019-03-01T16:10:51.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue SSR 解决不同终端渲染不同页面的问题">
 <meta name="twitter:description" content="随着技术的发展，现如今的网页越来越注意用户体验，设计上也越来越炫酷，对于我们开发的要求也越来越高。由于移动端和pc端在尺寸大小、分辨率、网速等方面的不同，对于同一个页面来说，很有可能移动端和pc端上的视觉呈现大相径庭，在日常的开发过程中，我们很有可能收到两份设计稿，一份pc端的，一份移动端的，如果这两个设计稿在视觉上的差异非常非常大，导致在同一个页面上做响应式适配变得非常复杂和繁琐，那么提取公共的">
@@ -149,7 +149,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 805 个字)
+                    5 分钟 读完 (大约 806 个字)
                 </span>
                 
                 
@@ -164,6 +164,7 @@
         <div class="content">
             <p>随着技术的发展，现如今的网页越来越注意用户体验，设计上也越来越炫酷，对于我们开发的要求也越来越高。由于移动端和pc端在尺寸大小、分辨率、网速等方面的不同，对于同一个页面来说，很有可能移动端和pc端上的视觉呈现大相径庭，在日常的开发过程中，我们很有可能收到两份设计稿，一份pc端的，一份移动端的，如果这两个设计稿在视觉上的差异非常非常大，导致在同一个页面上做响应式适配变得非常复杂和繁琐，那么提取公共的组件和方法，然后直接根据不同终端分别开发会是一个不错的选择。</p>
 <p>在改版我们原创馆官网的时候遇到过这个需求，这个项目是用Vue.js 开发的，同时也用了Vue SSR 进行的前后端同构，那么我们来模拟下这个问题，在不同终端渲染不同的页面，关键点是在组件里判断终端，简单粗暴的可以直接用userAgent来判断，有同学说这很easy 啊！</p>
+<a id="more"></a>
 <p><strong> Home.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="hljs-string">"home"</span>&gt;</span><br><span class="line">        &lt;mobile-page v-<span class="hljs-keyword">if</span>=<span class="hljs-string">"isMobile"</span>&gt;&lt;/mobile-page&gt;</span><br><span class="line">        &lt;pc-page v-else&gt;&lt;/pc-page&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="hljs-keyword">import</span> PcPage <span class="hljs-keyword">from</span> <span class="hljs-string">'./PcPage'</span></span><br><span class="line">    <span class="hljs-keyword">import</span> MobilePage <span class="hljs-keyword">from</span> <span class="hljs-string">'./MobilePage'</span></span><br><span class="line">    <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="line">        components : &#123;</span><br><span class="line">            PcPage,</span><br><span class="line">            MobilePage</span><br><span class="line">        &#125;,</span><br><span class="line">        data()&#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> &#123;</span><br><span class="line">                isMobile : process.env.VUE_ENV === <span class="hljs-string">'client'</span> ? <span class="hljs-regexp">/mobile/</span>.test(<span class="hljs-built_in">window</span>.navigator.userAgent.toLowerCase()) : <span class="hljs-literal">null</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="hljs-regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p><strong> PcPage.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="hljs-string">"pc-page"</span>&gt;</span><br><span class="line">        pc page</span><br><span class="line">    &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br></pre></td></tr></table></figure></p>
 <p><strong> MobilePage.vue </strong><br><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="hljs-string">"mobile-page"</span>&gt;</span><br><span class="line">        mobile page</span><br><span class="line">    &lt;<span class="hljs-regexp">/div&gt;</span></span><br><span class="line"><span class="hljs-regexp">&lt;/</span>template&gt;</span><br></pre></td></tr></table></figure></p>
@@ -192,40 +193,6 @@
 </div>
 
 
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
 
 
 
